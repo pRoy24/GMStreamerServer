@@ -3,7 +3,7 @@ require('dotenv').config();
 var express = require('express');
 var router = express.Router();
 
-const { listFrameKeys, getFrameInitMetadata , generatePreviewFrams} = require('../models/Frame');
+const { listFrameKeys, getFrameInitMetadata , generatePreviewFrame} = require('../models/Frame');
 
 /* GET users listing. */
 router.get('/list', async function(req, res, next) {
@@ -26,7 +26,7 @@ router.post('/frame_preview', async function(req, res) {
   console.log(url);
   const playbackId = url.split('/').pop();
 
-  await generatePreviewFrams(req.body);
+  await generatePreviewFrame(req.body);
 });
 
 router.get('/cast', function(req, res, next) {
