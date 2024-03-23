@@ -26,7 +26,11 @@ router.post('/frame_preview', async function(req, res) {
   console.log(url);
   const playbackId = url.split('/').pop();
 
-  await generatePreviewFrame(req.body);
+  const frameData = await generatePreviewFrame(req.body);
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.end(frameData);
+
+
 });
 
 router.get('/cast', function(req, res, next) {

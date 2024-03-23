@@ -109,6 +109,7 @@ async function generatePreviewFrame(payload) {
     <h1>Frame Preview</h1>
   </body>
   </html>`);
+  return returnData;
 }
 module.exports = {
   listFrameKeys,
