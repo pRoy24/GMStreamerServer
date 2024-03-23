@@ -63,6 +63,8 @@ async function getFrameInitMetadata(id) {
     buttons: [
       {
         text: "Preview",
+        action: "post_redirect",
+        post_url: "/api/frame_preview"
       }
     ],
   }
@@ -76,6 +78,7 @@ async function getFrameInitMetadata(id) {
     }
 
   }
+  retPayload.state = playbackId;
 
   return retPayload;
 
