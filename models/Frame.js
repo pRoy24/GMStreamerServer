@@ -76,11 +76,11 @@ async function getFrameInitMetadata(id) {
       retPayload.image = imageSource.uri;
     } else {
       retPayload.image = default_banner_image;
-    
     }
 
   }
   retPayload.state = playbackId;
+  retPayload.post_url = `${STREAMER_SERVER}/frames/frame_preview`;
 
   return retPayload;
 
