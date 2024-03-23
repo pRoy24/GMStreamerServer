@@ -101,7 +101,6 @@ async function generatePreviewFrame(payload) {
     <meta name="fc:frame:button:1" content="Preview" />
     <meta name="fc:frame:button:1:post" content="https://gm-casts.vercel.app/api/frame_preview" />
     <meta name="fc:frame:button:1:action" content="post_redirect" />
-    <meta name="fc:frame:state" content="https://livepeer.com/api/playback/${url}" />
     <meta name="fc:frame:post" content="https://gm-casts.vercel.app/api/frame_preview" />
     <meta name="fc:frame:video" content""/>
   </head>
