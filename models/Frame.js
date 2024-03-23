@@ -65,7 +65,7 @@ async function getFrameInitMetadata(id) {
     buttons: [
       {
         text: "Preview",
-        action: "post_redirect",
+        action: "post",
         post_url: `${STREAMER_SERVER}/frames/frame_preview`
       }
     ],
