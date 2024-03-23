@@ -93,6 +93,14 @@ async function generatePreviewFrame(payload) {
 
   console.log(responseJson.meta.source);
 
+  const thumbailItem = responseJson.meta.source.find((source) => (source.hrm && source.hrn.toLowerCase().contains('thumbnail')));
+
+  console.log(thumbailItem);
+
+  const videoItem = responseJson.meta.source.find((source) => (source.hrm && source.hrn.toLowerCase().contains('hls')));
+
+  console.log(videoItem);
+
   const returnData = (`
   <!DOCTYPE html>
   <html>
