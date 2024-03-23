@@ -13,7 +13,7 @@ router.get('/setup', function(req, res, next) {
 
 
 router.get('/cast', function(req, res, next) {
-  createNewCast();
+  createNewCast(req.body);
   res.send('respond with a resource');
 });
 
