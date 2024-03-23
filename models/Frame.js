@@ -68,7 +68,7 @@ async function getFrameInitMetadata(id) {
     ],
   }
   if (responseJson.meta.source) {
-    let imageSource = responseJson.meta.source.find((source) => (source.hrm && source.hrn.toLowerCase().contains('thumbnail')));
+    let imageSource = responseJson.meta.source.find((source) => (source.hrm && source.hrn.toLowerCase().includes('thumbnail')));
     if (imageSource) {
       retPayload.image = imageSource.uri;
     } else {
@@ -93,11 +93,11 @@ async function generatePreviewFrame(payload) {
 
   console.log(responseJson.meta.source);
 
-  const thumbailItem = responseJson.meta.source.find((source) => (source.hrm && source.hrn.toLowerCase().contains('thumbnail')));
+  const thumbailItem = responseJson.meta.source.find((source) => (source.hrm && source.hrn.toLowerCase().includes('thumbnail')));
 
   console.log(thumbailItem);
 
-  const videoItem = responseJson.meta.source.find((source) => (source.hrm && source.hrn.toLowerCase().contains('hls')));
+  const videoItem = responseJson.meta.source.find((source) => (source.hrm && source.hrn.toLowerCase().includes('hls')));
 
   console.log(videoItem);
 
