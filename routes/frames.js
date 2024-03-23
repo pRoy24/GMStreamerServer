@@ -3,7 +3,7 @@ require('dotenv').config();
 var express = require('express');
 var router = express.Router();
 
-const { listFrameKeys, getFrameInitMetadata } = require('../models/Frame');
+const { listFrameKeys, getFrameInitMetadata , generatePreviewFrams} = require('../models/Frame');
 
 /* GET users listing. */
 router.get('/list', async function(req, res, next) {
@@ -25,11 +25,8 @@ router.post('/frame_preview', async function(req, res) {
   const { untrustedData: {url}} = req.body;
   console.log(url);
   const playbackId = url.split('/').pop();
-  const FRAME_BASE_URL = process.env.FRAME_BASE_URL;
-  res.setHeader('Location', `${FRAME_BASE_URL}/frame_page/preview/${playbackId}`);
-  res.statusCode = 302;
-  res.end();
 
+  await generatePreviewFrams(req.body);
 });
 
 router.get('/cast', function(req, res, next) {
