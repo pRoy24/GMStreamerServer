@@ -16,7 +16,7 @@ const {
 const { hexToBytes } = require("@noble/hashes/utils");
 
 const ACCOUNT_PRIVATE_KEY = process.env.ACC_PRIVATE_KEY; // Your account key's private key
-const FID = parseInt(process.env.USER_FID); // Your fid
+const FID = parseInt(process.env.USER_FID) // Your fid
 
 const hubRpcEndpoint = 'hub-grpc.pinata.cloud';
 const hubClient = getSSLHubRpcClient(hubRpcEndpoint);
@@ -34,7 +34,7 @@ async function createNewCast(payload) {
 
   const { playbackId } = payload
 
-  const frameURL = `${FRAME_BASE_URL}/${playbackId}`
+  const frameURL = `${FRAME_BASE_URL}/frame_page/init/${playbackId}`
 
   const dataOptions = {
     fid: FID,
