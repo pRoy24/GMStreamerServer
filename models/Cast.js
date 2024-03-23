@@ -45,7 +45,7 @@ async function createNewCast(payload) {
   const castAddReq = await makeCastAdd(
     {
       text: `${frameURL}`,
-      embeds: [frameURL],
+      embeds: [{ url: frameURL}],
       embedsDeprecated: [],
       mentions: [],
       mentionsPositions: [],

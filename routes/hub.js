@@ -18,7 +18,7 @@ router.post('/cast', function(req, res, next) {
 });
 
 router.get('/remove_all', async function(req, res){ 
-  removeAllCasts();
+  //removeAllCasts();
 })
 
 module.exports = router;
