@@ -24,12 +24,17 @@ const hubClient = getSSLHubRpcClient(hubRpcEndpoint);
 const PINATA_API_KEY = process.env.PINATA_API_KEY;
 const PINATA_API_URL = process.env.PINATA_HUB_URL;
 const USER_FID = process.env.USER_FID;
+const FRAME_BASE_URL = process.env.FRAME_BASE_URL;
 
 const privateKeyBytes = hexToBytes(ACCOUNT_PRIVATE_KEY.slice(2));
 const ed25519Signer = new NobleEd25519Signer(privateKeyBytes);
 
 
-async function createNewCast(req) {
+async function createNewCast(payload) {
+
+  const { playbackId } = payload
+
+  const frameURL = `${FRAME_BASE_URL}/${playbackId}`
 
   const dataOptions = {
     fid: FID,
@@ -39,7 +44,7 @@ async function createNewCast(req) {
 
   const castAddReq = await makeCastAdd(
     {
-      text: "This is a cast with no mentions",
+      text: `${frameURL}`,
       embeds: [],
       embedsDeprecated: [],
       mentions: [],
