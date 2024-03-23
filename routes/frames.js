@@ -22,8 +22,11 @@ router.get('/init_metadata', async function(req, res) {
 router.post('/frame_preview', async function(req, res) {
 
   console.log(req.body);
+  const { untrustedData: {url}} = req.body;
+  console.log(url);
+  const playbackId = url.split('/').pop();
   const FRAME_BASE_URL = process.env.FRAME_BASE_URL;
-  res.setHeader('Location', `${FRAME_BASE_URL}/frame_page/preview/${req.body.state}`);
+  res.setHeader('Location', `${FRAME_BASE_URL}/frame_page/preview/${playbackId}`);
   res.statusCode = 302;
   res.end();
 
