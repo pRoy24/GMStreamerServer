@@ -16,14 +16,14 @@ const {
 const { hexToBytes } = require("@noble/hashes/utils");
 
 const ACCOUNT_PRIVATE_KEY = process.env.ACC_PRIVATE_KEY; // Your account key's private key
-const FID = process.env.USER_FID; // Your fid
+const FID = parseInt(process.env.USER_FID); // Your fid
 
 const hubRpcEndpoint = 'hub-grpc.pinata.cloud';
 const hubClient = getSSLHubRpcClient(hubRpcEndpoint);
 
 const PINATA_API_KEY = process.env.PINATA_API_KEY;
 const PINATA_API_URL = process.env.PINATA_HUB_URL;
-const USER_FID = process.env.USER_FID;
+
 const FRAME_BASE_URL = process.env.FRAME_BASE_URL;
 
 const privateKeyBytes = hexToBytes(ACCOUNT_PRIVATE_KEY.slice(2));
@@ -78,7 +78,7 @@ async function removeAllCasts() {
   const pinataHeaders = {
     'Authorization': `Bearer ${PINATA_API_KEY}`,
   }
-  const castListData = await axios.get(`${PINATA_API_URL}/castsByFid?fid=${USER_FID}`, { 'headers': pinataHeaders });
+  const castListData = await axios.get(`${PINATA_API_URL}/castsByFid?fid=${FID}`, { 'headers': pinataHeaders });
 
   const castList = castListData.data.messages;
 
