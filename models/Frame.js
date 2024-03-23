@@ -59,14 +59,14 @@ async function getFrameInitMetadata(id) {
   const responseJson = JSON.parse(response.rawResponse.data.toString());
   console.log(responseJson);
 
-  const FRAME_BASE_URL = process.env.FRAME_BASE_URL;
+  const STREAMER_SERVER = process.env.STREAMER_SERVER;
 
   let retPayload = {
     buttons: [
       {
         text: "Preview",
         action: "post_redirect",
-        post_url: `${FRAME_BASE_URL}/api/frame_preview`
+        post_url: `${STREAMER_SERVER}/frames/frame_preview`
       }
     ],
   }
