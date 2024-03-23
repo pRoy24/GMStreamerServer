@@ -100,6 +100,7 @@ async function generatePreviewFrame(payload) {
     <meta name="of:accepts:farcaster" content="vNext" />
     <meta name="of:version" content="vNext" />
     <meta name="fc:frame:image" content="https://imaginewares.s3.us-west-2.amazonaws.com/static/txt2img/generations/generation_15_190f32.png" />
+    <meta name="og:image" content="https://imaginewares.s3.us-west-2.amazonaws.com/static/txt2img/generations/generation_15_190f32.png" />
     <meta name="fc:frame:button:1" content="Preview" />
     <meta name="fc:frame:button:1:post" content="https://gm-casts.vercel.app/api/frame_preview" />
     <meta name="fc:frame:button:1:action" content="post_redirect" />
