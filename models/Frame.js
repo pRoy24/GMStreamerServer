@@ -94,11 +94,7 @@ async function generatePreviewFrame(payload) {
   <!DOCTYPE html>
   <html>
   <head>
-    <title>Frame Preview</title>
     <meta name="fc:frame" content="vNext" />
-    <meta name="of:accepts:xmtp" content='vNext' />
-    <meta name="of:accepts:farcaster" content="vNext" />
-    <meta name="of:version" content="vNext" />
     <meta name="fc:frame:image" content="https://imaginewares.s3.us-west-2.amazonaws.com/static/txt2img/generations/generation_15_190f32.png" />
     <meta name="og:image" content="https://imaginewares.s3.us-west-2.amazonaws.com/static/txt2img/generations/generation_15_190f32.png" />
 
