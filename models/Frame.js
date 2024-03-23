@@ -91,7 +91,7 @@ async function generatePreviewFrame(payload) {
   const response = await livepeer.playback.get(playbackId);
   const responseJson = JSON.parse(response.rawResponse.data.toString());
 
-  console.log(responseJson);
+  console.log(responseJson.meta.source);
 
   const returnData = (`
   <!DOCTYPE html>
