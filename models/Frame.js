@@ -3,7 +3,11 @@ const axios = require('axios');
 const PINATA_API_KEY = process.env.PINATA_API_KEY;
 const PINATA_API_URL = process.env.PINATA_HUB_URL;
 const USER_FID = process.env.USER_FID;
+const { Livepeer } = require("livepeer");
+const apiKey = process.env.LIVEPEER_API_KEY;
+const default_banner_image = 'https://imaginewares.s3.us-west-2.amazonaws.com/static/txt2img/generations/generation_15_190f32.png';
 
+const livepeer = new Livepeer({apiKey});
 
 const extractUrls = (text) => {
   const urlRegex = /https?:\/\/[^\s]+/g;
@@ -47,6 +51,36 @@ async function listFrameKeys() {
 }
 
 
+async function getFrameInitMetadata(id) {
+  const playbackId = id;
+  const response = await livepeer.playback.get(playbackId);
+
+
+  const responseJson = JSON.parse(response.rawResponse.data.toString());
+  console.log(responseJson);
+
+  let retPayload = {
+    buttons: [
+      {
+        text: "Preview",
+      }
+    ],
+  }
+  if (responseJson.meta.source) {
+    let imageSource = responseJson.meta.source.find((source) => (source.hrm && source.hrn.toLowerCase().contains('thumbnail')));
+    if (imageSource) {
+      retPayload.image = imageSource.uri;
+    } else {
+      retPayload.image = default_banner_image;
+    
+    }
+
+  }
+
+  return retPayload;
+
+}
 module.exports = {
-  listFrameKeys
+  listFrameKeys,
+  getFrameInitMetadata
 };
