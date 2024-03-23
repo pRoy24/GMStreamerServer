@@ -90,7 +90,9 @@ async function generatePreviewFrame(payload) {
   console.log(payload);
   const { untrustedData: {url}} = payload
 
-  const returnData = (`<html>
+  const returnData = (`
+  <!DOCTYPE html>
+  <html>
   <head>
     <title>Frame Preview</title>
     <meta name="fc:frame" content="vNext" />
@@ -102,7 +104,7 @@ async function generatePreviewFrame(payload) {
     <meta name="fc:frame:button:1:post" content="https://gm-casts.vercel.app/api/frame_preview" />
     <meta name="fc:frame:button:1:action" content="post_redirect" />
     <meta name="fc:frame:post" content="https://gm-casts.vercel.app/api/frame_preview" />
-    <meta name="fc:frame:video" content""/>
+    <meta name="fc:frame:video" content=""/>
   </head>
   <body>
     <h1>Frame Preview</h1>
