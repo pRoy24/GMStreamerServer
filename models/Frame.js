@@ -29,6 +29,10 @@ async function listFrameKeys() {
 
     const activeURL = urls[0];
 
+    if (!activeURL.includes('gm-casts')) {
+      return
+    }
+
     const urlParts = activeURL.split('/');
     const urlKey = urlParts[urlParts.length - 1];
     if (urlKey) {
