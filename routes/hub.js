@@ -12,7 +12,7 @@ router.get('/setup', function(req, res, next) {
 });
 
 
-router.get('/cast', function(req, res, next) {
+router.post('/cast', function(req, res, next) {
   createNewCast(req.body);
   res.send('respond with a resource');
 });
