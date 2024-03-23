@@ -71,7 +71,7 @@ async function getFrameInitMetadata(id) {
 
     let imageSource = responseJson.meta.source.find((source) => (source.hrn && source.hrn.toLowerCase().includes('thumbnail')));
     if (imageSource) {
-      retPayload.image = imageSource.uri;
+      retPayload.image = imageSource.url;
     } else {
       retPayload.image = default_banner_image;
     }
@@ -102,14 +102,22 @@ async function generatePreviewFrame(payload) {
 
   console.log(videoItem);
 
+  let imageURL = default_banner_image;
+  if (thumbailItem) {
+    imageURL = thumbailItem.url;
+  }
+
+  
+
   const returnData = (`
   <!DOCTYPE html>
   <html>
   <head>
     <meta name="fc:frame" content="vNext" />
-    <meta name="fc:frame:image" content="https://imaginewares.s3.us-west-2.amazonaws.com/static/txt2img/generations/generation_15_190f32.png" />
-    <meta name="og:image" content="https://imaginewares.s3.us-west-2.amazonaws.com/static/txt2img/generations/generation_15_190f32.png" />
-
+    <meta name="fc:frame:image" content="${imageURL}" />
+    <meta name="og:image" content="${imageURL}" />
+    <meta name="fc:frame:video	" content="${videoItem.url}" />
+    <meta name="fc:frame:video:type" content="${videoItem.type}" />
   </head>
   <body>
     <h1>Frame Preview</h1>
