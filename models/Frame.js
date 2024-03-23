@@ -54,10 +54,7 @@ async function listFrameKeys() {
 async function getFrameInitMetadata(id) {
   const playbackId = id;
   const response = await livepeer.playback.get(playbackId);
-
-
   const responseJson = JSON.parse(response.rawResponse.data.toString());
-  console.log(responseJson);
 
   const STREAMER_SERVER = process.env.STREAMER_SERVER;
 
@@ -89,6 +86,12 @@ async function getFrameInitMetadata(id) {
 async function generatePreviewFrame(payload) {
   console.log(payload);
   const { untrustedData: {url}} = payload
+
+  const playbackId = url.split('/').pop();
+  const response = await livepeer.playback.get(playbackId);
+  const responseJson = JSON.parse(response.rawResponse.data.toString());
+
+  console.log(responseJson);
 
   const returnData = (`
   <!DOCTYPE html>
