@@ -20,6 +20,8 @@ async function listFrameKeys() {
   const castList = castListData.data.messages;
 
   const castListContentMap = castList.map((cast) => {
+    console.log(cast);
+    if (!cast.data.castAddBody) return;
     const messageText = cast.data.castAddBody.text;
     const urls = extractUrls(messageText);
 

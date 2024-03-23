@@ -62,6 +62,7 @@ async function createNewCast(req) {
 
 
 async function removeAllCasts() {
+  // const hashList = ['0x667dc276648cac484f890488c0db856f67801407', '0x73cca418242ffff9eefa4188ff8dd71e6423ead6'];
 
   const dataOptions = {
     fid: FID,
@@ -86,20 +87,21 @@ async function removeAllCasts() {
     const ed25519Signer = new NobleEd25519Signer(privateKeyBytes);
 
 
-  //  const createdCastReq = await makeCastAdd(castAddBody, dataOptions, ed25519Signer);
-   // const createdCast = createdCastReq._unsafeUnwrap();
 
     if (currentCastData) {
   
       const createdCastHash = currentCastData.hash;
 
       console.log(createdCastHash);
+      const hex = hexToBytes(createdCastHash.slice(2))
 
       const castRemoveReq = await makeCastRemove({
         targetHash: createdCastHash,
       }, dataOptions, ed25519Signer);
 
       const messageResponse = await hubClient.submitMessage(castRemoveReq._unsafeUnwrap());
+      console.log(messageResponse);
+      console.log("EE TTT")
 
     }
 
