@@ -7,7 +7,7 @@ const { Livepeer } = require("livepeer");
 const apiKey = process.env.LIVEPEER_API_KEY;
 const default_banner_image = 'https://imaginewares.s3.us-west-2.amazonaws.com/static/txt2img/generations/generation_15_190f32.png';
 
-const livepeer = new Livepeer({apiKey});
+const livepeer = new Livepeer({ apiKey });
 
 const extractUrls = (text) => {
   const urlRegex = /https?:\/\/[^\s]+/g;
@@ -19,7 +19,7 @@ async function listFrameKeys() {
   const pinataHeaders = {
     'Authorization': `Bearer ${PINATA_API_KEY}`,
   }
-  const castListData = await axios.get(`${PINATA_API_URL}/castsByFid?fid=${USER_FID}`, {'headers': pinataHeaders});
+  const castListData = await axios.get(`${PINATA_API_URL}/castsByFid?fid=${USER_FID}`, { 'headers': pinataHeaders });
 
   const castList = castListData.data.messages;
 
@@ -50,6 +50,41 @@ async function listFrameKeys() {
 
 }
 
+
+async function getActiveFrames() {
+  const pinataHeaders = {
+    'Authorization': `Bearer ${PINATA_API_KEY}`,
+  }
+  const castListData = await axios.get(`${PINATA_API_URL}/castsByFid?fid=${USER_FID}`, { 'headers': pinataHeaders });
+
+  const castList = castListData.data.messages;
+
+  const castListContentMap = castList.map((cast) => {
+    console.log(cast);
+    if (!cast.data.castAddBody) return;
+    const messageText = cast.data.castAddBody.text;
+    const urls = extractUrls(messageText);
+
+    if (urls.length === 0) return;
+
+    const activeURL = urls[0];
+
+    if (!activeURL.includes('gm-casts')) {
+      return
+    }
+
+    const urlParts = activeURL.split('/');
+    const urlKey = urlParts[urlParts.length - 1];
+    if (urlKey) {
+      return cast;
+    } else {
+      return;
+    }
+  }).filter(Boolean);
+
+  return castListContentMap;
+
+}
 
 async function getFrameInitMetadata(id) {
   const playbackId = id;
@@ -86,28 +121,24 @@ async function getFrameInitMetadata(id) {
 
 async function generatePreviewFrame(payload) {
   console.log(payload);
-  const { untrustedData: {url}} = payload
+  const { untrustedData: { url } } = payload
 
   const playbackId = url.split('/').pop();
   const response = await livepeer.playback.get(playbackId);
   const responseJson = JSON.parse(response.rawResponse.data.toString());
 
-  console.log(responseJson.meta.source);
 
   const thumbailItem = responseJson.meta.source.find((source) => (source.hrn && source.hrn.toLowerCase().includes('thumbnail')));
 
-  console.log(thumbailItem);
 
   const videoItem = responseJson.meta.source.find((source) => (source.hrn && source.hrn.toLowerCase().includes('hls')));
-
-  console.log(videoItem);
 
   let imageURL = default_banner_image;
   if (thumbailItem) {
     imageURL = thumbailItem.url;
   }
 
-  
+
 
   const returnData = (`
   <!DOCTYPE html>
@@ -116,7 +147,7 @@ async function generatePreviewFrame(payload) {
     <meta name="fc:frame" content="vNext" />
     <meta name="fc:frame:image" content="${imageURL}" />
     <meta name="og:image" content="${imageURL}" />
-    <meta name="fc:frame:video	" content="${videoItem.url}" />
+    <meta name="fc:frame:video" content="${videoItem.url}" />
     <meta name="fc:frame:video:type" content="${videoItem.type}" />
   </head>
   <body>
@@ -128,5 +159,6 @@ async function generatePreviewFrame(payload) {
 module.exports = {
   listFrameKeys,
   getFrameInitMetadata,
-  generatePreviewFrame
+  generatePreviewFrame,
+  getActiveFrames
 };

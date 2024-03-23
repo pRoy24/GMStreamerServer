@@ -3,7 +3,8 @@ require('dotenv').config();
 var express = require('express');
 var router = express.Router();
 
-const { listFrameKeys, getFrameInitMetadata , generatePreviewFrame} = require('../models/Frame');
+const { listFrameKeys, getFrameInitMetadata , generatePreviewFrame,
+  getActiveFrames} = require('../models/Frame');
 
 /* GET users listing. */
 router.get('/list', async function(req, res, next) {
@@ -11,6 +12,13 @@ router.get('/list', async function(req, res, next) {
   res.send(fk);
 });
 
+
+router.get('/active_frames', async function(req, res) {
+  const { id } = req.query;
+  const frames = await getActiveFrames(id);
+  res.send(frames);
+
+});
 
 router.get('/init_metadata', async function(req, res) {
   const { id } = req.query;
