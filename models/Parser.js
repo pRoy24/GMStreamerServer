@@ -1,11 +1,12 @@
 
-const fetch = require('node-fetch');
+
+const axios = require('axios');
 const cheerio = require('cheerio');
 
 async function extractMeta(url) {
     try {
-        const response = await fetch(url);
-        const html = await response.text();
+        const response = await axios.get(url);
+        const html = response.data; // Axios stores the response body in `data`
         const $ = cheerio.load(html);
 
         const metaTags = {
@@ -22,6 +23,8 @@ async function extractMeta(url) {
         throw error;
     }
 }
+
+
 
 module.exports = {
   extractMeta
