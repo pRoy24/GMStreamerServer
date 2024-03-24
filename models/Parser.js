@@ -20,7 +20,7 @@ async function extractMeta(url) {
         return metaTags;
     } catch (error) {
         console.error("Error fetching or parsing HTML:", error);
-      //  throw error;
+        throw error;
     }
 }
 

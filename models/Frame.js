@@ -130,12 +130,20 @@ async function getFrameInitMetadata(id) {
 
   }
 
-  const videoItem = responseJson.meta.source.find((source) => (source.hrn && source.hrn.toLowerCase().includes('hls')));
+  const videoHLSItem = responseJson.meta.source.find((source) => (source.hrn && source.hrn.toLowerCase().includes('hls')));
 
-  if (videoItem) {
-    retPayload.video = videoItem.url;
-    retPayload.videoType = videoItem.type;
+  if (videoHLSItem) {
+    retPayload.videoHLS = videoHLSItem.url;
+    retPayload.videoHLSType = videoHLSItem.type;
   }
+
+  const videoWebRTCItem = responseJson.meta.source.find((source) => (source.hrn && source.hrn.toLowerCase().includes('webrtc')));
+
+  if (videoWebRTCItem) {
+    retPayload.videoWebRTC = videoWebRTCItem.url;
+    retPayload.videoWebRTCType = videoWebRTCItem.type;
+  }
+  
   retPayload.state = playbackId;
   retPayload.post_url = `${STREAMER_SERVER}/frames/frame_preview`;
 
@@ -157,12 +165,14 @@ async function generatePreviewFrame(payload) {
   const thumbailItem = responseJson.meta.source.find((source) => (source.hrn && source.hrn.toLowerCase().includes('thumbnail')));
 
 
-  const videoItem = responseJson.meta.source.find((source) => (source.hrn && source.hrn.toLowerCase().includes('hls')));
+  const hlsVideoItem = responseJson.meta.source.find((source) => (source.hrn && source.hrn.toLowerCase().includes('hls')));
 
   let imageURL = default_banner_image;
   if (thumbailItem) {
     imageURL = thumbailItem.url;
   }
+
+  const wrtcVideoItem = responseJson.meta.source.find((source) => (source.hrn && source.hrn.toLowerCase().includes('webrtc')));
 
 
 
@@ -173,8 +183,11 @@ async function generatePreviewFrame(payload) {
     <meta name="fc:frame" content="vNext" />
     <meta name="fc:frame:image" content="${imageURL}" />
     <meta name="og:image" content="${imageURL}" />
-    <meta name="fc:frame:video" content="${videoItem.url}" />
-    <meta name="fc:frame:video:type" content="${videoItem.type}" />
+    <meta name="fc:frame:video_hls" content="${hlsVideoItem.url}" />
+    <meta name="fc:frame:video_hls:type" content="${hlsVideoItem.type}" />
+    <meta name="fc:frame:video_webrtc" content="${wrtcVideoItem.url}" />
+    <meta name="fc:frame:video_webrtc:type" content="${wrtcVideoItem.type}" />
+
   </head>
   <body>
     <h1>Frame Preview</h1>
