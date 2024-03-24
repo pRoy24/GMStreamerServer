@@ -76,7 +76,7 @@ async function getActiveFrames() {
 
     const activeURL = urls[0];
 
-    if (!activeURL.includes('gm-casts') && !embedUrl.includes('gm-casts')) {
+    if ((activeURL && !activeURL.includes('gm-casts')) && (embedUrl && !embedUrl.includes('gm-casts'))) {
       return
     }
     if (embedUrl.includes('gm-casts')) {
