@@ -23,12 +23,15 @@ router.get('/active_frames', async function(req, res) {
 
 router.get('/init_metadata', async function(req, res) {
   const { id } = req.query;
+  console.log(id);
   const frame = await getFrameInitMetadata(id);
   res.send(frame);
 });
 
 
 router.post('/frame_preview', async function(req, res) {
+
+  console.log("VE MEEE");
 
   console.log(req.body);
   const { untrustedData: {url}} = req.body;
