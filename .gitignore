@@ -10,7 +10,8 @@ node_modules/
 
 /node_modules/
 
-resources/
+
+
 # Environment files
 **/.env
 **/.env.local
