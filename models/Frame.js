@@ -79,13 +79,13 @@ async function getActiveFrames() {
     if ((activeURL && !activeURL.includes('gm-casts')) && (embedUrl && !embedUrl.includes('gm-casts'))) {
       return
     }
-    if (embedUrl.includes('gm-casts')) {
+    if (embedUrl && embedUrl.includes('gm-casts')) {
       const urlParts = embedUrl.split('/');
       const urlKey = urlParts[urlParts.length - 1];
       if (urlKey) {
         return cast;
       }
-    } else if (activeURL.includes('gm-casts')) {
+    } else if (activeURL && activeURL.includes('gm-casts')) {
       const urlParts = activeURL.split('/');
       const urlKey = urlParts[urlParts.length - 1];
       if (urlKey) {
