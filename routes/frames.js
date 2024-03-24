@@ -23,9 +23,13 @@ router.get('/active_frames', async function(req, res) {
 
 router.get('/init_metadata', async function(req, res) {
   const { id } = req.query;
-  console.log(id);
+try {
   const frame = await getFrameInitMetadata(id);
   res.send(frame);
+} catch (e) {
+  console.log(e);
+  res.send({})
+}
 });
 
 

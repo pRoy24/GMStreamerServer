@@ -126,6 +126,13 @@ async function getFrameInitMetadata(id) {
     }
 
   }
+
+  const videoItem = responseJson.meta.source.find((source) => (source.hrn && source.hrn.toLowerCase().includes('hls')));
+
+  if (videoItem) {
+    retPayload.video = videoItem.url;
+    retPayload.videoType = videoItem.type;
+  }
   retPayload.state = playbackId;
   retPayload.post_url = `${STREAMER_SERVER}/frames/frame_preview`;
 
