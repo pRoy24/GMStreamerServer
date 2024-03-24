@@ -38,14 +38,11 @@ const { optimism } = require("viem/chains");
 const { ed25519 } = require("@noble/curves/ed25519");
 const axios = require("axios");
 
-/**
- * Populate the following constants with your own values
- */
-const MNEMONIC = process.env.ACCOUNT_MNEMONIC;
+
 const OP_PROVIDER_URL = process.env.OP_PROVIDER_URL;
 
 const RECOVERY_ADDRESS = zeroAddress; // Optional, using the default value means the account will not be recoverable later if the mnemonic is lost
-const ACCOUNT_KEY_PRIVATE_KEY = process.env.SIGNER_PRIVATE_KEY; // Optional, using the default means a new account key will be created each time
+const ACCOUNT_KEY_PRIVATE_KEY = process.env.FUNDER_PRIVATE_KEY; // Optional, using the default means a new account key will be created each time
 
 // Note: nemes is the Farcaster team's mainnet hub, which is password protected to prevent abuse. Use a 3rd party hub
 // provider like https://neynar.com/ Or, run your own mainnet hub and broadcast to it permissionlessly.
@@ -188,7 +185,7 @@ const registerFname = async (fid) => {
     // No username, ignore and continue with registering
   }
 
-  const fname = `GMcasts`;
+  const fname = `fid-${fid}`;
   const timestamp = Math.floor(Date.now() / 1000);
   const localAccount = toAccount(account);
   const signer = new ViemLocalEip712Signer(localAccount);
