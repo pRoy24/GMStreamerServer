@@ -118,6 +118,9 @@ async function getFrameInitMetadata(id) {
   }
   if (responseJson.meta.source) {
 
+    console.log(responseJson.meta.source);
+    console.log("*****");
+    
     let imageSource = responseJson.meta.source.find((source) => (source.hrn && source.hrn.toLowerCase().includes('thumbnail')));
     if (imageSource) {
       retPayload.image = imageSource.url;
@@ -147,6 +150,8 @@ async function generatePreviewFrame(payload) {
   const playbackId = url.split('/').pop();
   const response = await livepeer.playback.get(playbackId);
   const responseJson = JSON.parse(response.rawResponse.data.toString());
+
+  console.log(responseJson.meta.source);
 
 
   const thumbailItem = responseJson.meta.source.find((source) => (source.hrn && source.hrn.toLowerCase().includes('thumbnail')));
