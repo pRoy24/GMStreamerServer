@@ -66,9 +66,10 @@ async function getActiveFrames() {
     const urls = extractUrls(messageText);
 
     const embeds = cast.data.castAddBody.embeds;
+    let embedUrl;
     if (embeds && embeds.length > 0) {
       const embed = embeds[0];
-      const embedUrl = embed.url;
+      embedUrl = embed.url;
 
     }
     if (urls.length === 0) return;
