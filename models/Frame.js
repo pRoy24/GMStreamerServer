@@ -65,18 +65,27 @@ async function getActiveFrames() {
     const messageText = cast.data.castAddBody.text;
     const urls = extractUrls(messageText);
 
+    const embed = cast.data.castAddBody.embeds[0];
+    const embedUrl = embed.url;
     if (urls.length === 0) return;
 
     const activeURL = urls[0];
 
-    if (!activeURL.includes('gm-casts')) {
+    if (!activeURL.includes('gm-casts') && !embedUrl.includes('gm-casts')) {
       return
     }
-
-    const urlParts = activeURL.split('/');
-    const urlKey = urlParts[urlParts.length - 1];
-    if (urlKey) {
-      return cast;
+    if (embedUrl.includes('gm-casts')) {
+      const urlParts = embedUrl.split('/');
+      const urlKey = urlParts[urlParts.length - 1];
+      if (urlKey) {
+        return cast;
+      }
+    } else if (activeURL.includes('gm-casts')) {
+      const urlParts = activeURL.split('/');
+      const urlKey = urlParts[urlParts.length - 1];
+      if (urlKey) {
+        return cast;
+      }
     } else {
       return;
     }

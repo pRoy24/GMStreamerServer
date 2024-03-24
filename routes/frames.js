@@ -5,6 +5,7 @@ var router = express.Router();
 
 const { listFrameKeys, getFrameInitMetadata , generatePreviewFrame,
   getActiveFrames} = require('../models/Frame');
+const { extractMeta } = require('../models/Parser');
 
 /* GET users listing. */
 router.get('/list', async function(req, res, next) {
@@ -47,6 +48,13 @@ router.post('/frame_preview', async function(req, res) {
 router.get('/cast', function(req, res, next) {
   handler();
   res.send('respond with a resource');
+});
+
+router.post('/extract_meta', async function(req, res) {
+  const { url } = req.body;
+  console.log(url);
+  const data = await extractMeta(url);
+  res.send(data);
 });
 
 module.exports = router;
